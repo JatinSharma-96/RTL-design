@@ -30,7 +30,7 @@ module mem_apb_slave(input PSEL,PENABLE,PWRITE,clk,rstn,
         rd_en = ~PWRITE;
         PREADY = PWRITE;
       end
-      WAIT : begin
+      WAIT : begin  //for delay of 1 cycle in read
         nxt_st = SETUP;
         rd_en = 0;
         wr_en = 0;
