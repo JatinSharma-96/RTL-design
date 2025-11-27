@@ -1,0 +1,1 @@
+Bit stream input coming synchronously with the clock. Sync goes low that's when the 8-bit packet starts, counter counts till 8 and then outputs the parallel data, then again the transmission of new packet starts.
