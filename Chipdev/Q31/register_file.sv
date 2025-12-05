@@ -11,8 +11,6 @@ module model #(parameter
     output logic collision
 );
 
-typedef enum logic[1:0] {INIT,OP,COLL} st;
-st PS,NS;
 
 logic[DATA_WIDTH-1:0] mem[0:31];
 logic coll_condn,wen_c;
@@ -21,14 +19,14 @@ integer i;
 
 always_ff@(posedge clk) begin
     if(~resetn) begin
-        PS <= INIT;
+        //PS <= INIT;
         for(i=0;i<31;i=i+1) mem[i] <= 0 ;
         dout1 <= 0;
         dout2 <= 0;
         collision <= 0;
     end
     else begin
-        PS <= NS;
+        //PS <= NS;
         if(wen_c) mem[wad1] <= din;
         if(ren1) dout1 <= ~coll_condn ? mem[rad1] : 0 ;
         else dout1 <= 0;
@@ -36,15 +34,6 @@ always_ff@(posedge clk) begin
         else dout2 <= 0;
         collision <= coll_condn;
     end
-end
-
-always_comb begin
-    case(PS)
-    INIT : NS = wen1 ? OP : INIT;
-    OP : NS = coll_condn ? COLL : OP;
-    COLL : NS = coll_condn ? COLL : OP;
-    default : NS = INIT;
-    endcase
 end
 
 assign wen_c = wen1 & ~coll_condn;
