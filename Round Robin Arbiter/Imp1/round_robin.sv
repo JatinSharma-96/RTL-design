@@ -4,10 +4,10 @@ module round_robin_arbiter #(parameter N=4) (input clk,rstn,
                                              output logic[N-1:0] grant,
                                              output logic grant_valid);
   
-  logic[$clog2(N)-1:0] ptr,ptr_nxt;
+  logic[$clog2(N)-1:0] ptr,ptr_nxt,idx;
   logic[N-1:0] req_shifted,upt_grant;
   logic[2*N-1:0] req_shifted_double,grant_shifted;
-  logic gs,idx;
+  logic gs;
   integer i;
   
   genvar j,k;
